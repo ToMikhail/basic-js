@@ -8,20 +8,31 @@ module.exports = function transform(arr) {
         i = i + 1;
       }
       else if (arr[i] === '--discard-prev') {
-        res.pop();
+        if(arr[i - 2] === '--discard-next') {
+          continue
+        }
+        else{
+          res.pop();
+        }
       }
       else if (arr[i] === '--double-next') {
-        if (i = arr.length - 1) {
+
+        if (i === arr.length - 1) {
+
           continue
         }
         else {
           res.push(arr[i + 1]);
         }
       }
-      else if (arr[i] === '--double-prev') {
+      else if (arr[i] === '--double-prev'){
         if(res.length === 0){
           continue
-        } else{
+        } 
+        else if(arr[i - 2] === '--discard-next') {
+          continue;
+        }
+        else{
           res.push(arr[i - 1]);
         }
       }
