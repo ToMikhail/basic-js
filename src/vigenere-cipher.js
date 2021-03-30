@@ -1,12 +1,10 @@
 const CustomError = require("../extensions/custom-error");
 
 class VigenereCipheringMachine {
-  // let arr = [
-  //             'A', 'B', 'C', 'D', 'E', 'F', 'G',
-  //              'H', 'I', 'J', 'K', 'L', 'M', 'N',
-  //               'O', 'P', 'Q', 'R', 'S', 'T', 'U',
-  //                'V', 'W', 'X', 'Y', 'Z'
-  //           ];
+  constructor(arg = true){
+    this.arg = arg;
+  }
+
   encrypt(message, key) {
     if (message === undefined || key === undefined) {
       throw new Error("error");
@@ -21,7 +19,7 @@ class VigenereCipheringMachine {
     for (let i = 0; i < message.length; i++) {
       let charCodeMess = message.charCodeAt(i);
 
-      if (65 <= charCodeMess && charCodeMess <= 90) {
+      if (65 <= charCodeMess && charCodeMess <= 91) {
         charCodeMess -= 65;
         let charCodeKey = key.charCodeAt(j);
         charCodeKey -= 65;
@@ -31,6 +29,10 @@ class VigenereCipheringMachine {
       } else {
         encryptMess += message[i];
       }
+    }
+
+    if(this.arg === false) {
+      return encryptMess.split("").reverse().join("")
     }
     return encryptMess;
   }
@@ -59,6 +61,9 @@ class VigenereCipheringMachine {
       } else {
         decryptMess += message[i];
       }
+    }
+    if(this.arg === false) {
+      return decryptMess.split("").reverse().join("")
     }
     return decryptMess;
   }
